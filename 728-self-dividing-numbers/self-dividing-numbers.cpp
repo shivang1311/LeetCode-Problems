@@ -1,14 +1,14 @@
 class Solution {
 public:
+    // shivang agrawal
     vector<int> selfDividingNumbers(int left, int right) {
         vector<int> arr;
-        for(int i=left; i<=right; i++)
-        {
+        for(int i=left; i<=right; i++){
             if(i%10!=0){
-            if(isselfDivide(i))
-            {
-                arr.push_back(i);
-            }}
+                if(isselfDivide(i)){
+                    arr.push_back(i);
+                }
+            }
         }
         return arr;
     }
@@ -25,12 +25,10 @@ public:
                 break;
             }
             x/=10;
-            if(a%lst==0)
-            {
+            if(a%lst==0){
                 flag = true;
             }
-            else
-            {
+            else{
                 flag = false;
                 break;
             }
