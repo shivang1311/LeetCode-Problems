@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // shivang agrawal
     int commonFactors(int a, int b) {
         int small = min(a,b);
         int count = 0;
