@@ -1,42 +1,55 @@
+// shivang agrawal
+static auto init = []() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  return nullptr;
+}();
+
+static inline bool is_vowel(char c) {
+  return c == 'a'|| c == 'e' || c == 'i' || c == 'o' || c == 'u';
+}
 class Solution {
-    // shivang agrawal
- public:
-  long long countOfSubstrings(string word, int k) {
-    return substringsWithAtMost(word, k) - substringsWithAtMost(word, k - 1);
-  }
- private:
-  long substringsWithAtMost(const string& word, int k) {
-    if (k == -1)
-      return 0;
-    long res = 0;
-    int vowels = 0;
-    int uniqueVowels = 0;
-    unordered_map<char, int> vowelLastSeen;
-    for (int l = 0, r = 0; r < word.length(); ++r) {
-      if (isVowel(word[r])) {
-        ++vowels;
-        if (const auto it = vowelLastSeen.find(word[r]);
-            it == vowelLastSeen.end() || it->second < l)
-          ++uniqueVowels;
-        vowelLastSeen[word[r]] = r;
-      }
-      while (r - l + 1 - vowels > k) {
-        if (isVowel(word[l])) {
-          --vowels;
-          if (vowelLastSeen[word[l]] == l)
-            --uniqueVowels;
+public:
+  static long long countOfSubstrings(const string& word, int k) {
+    auto num_substrings = 0ll;
+    auto vowel_counts = array<int, 26>{};
+    auto cons_count = 0;
+    auto unique_vowel_count = 0;
+    int n = size(word);
+    for (auto l = 0, r_inner = 0, r_outer = 0; r_outer < n; ) {
+      for (;
+           r_inner < n && (cons_count < k || (unique_vowel_count < 5 &&
+                                              is_vowel(word[r_inner])));
+           ++r_inner) {
+        if (auto c = word[r_inner]; is_vowel(c)) {
+          if (vowel_counts[c - 'a']++ == 0)  ++unique_vowel_count;
+        } else {
+          ++cons_count;
         }
-        ++l;
       }
-      if (uniqueVowels == 5)
-        res += min({vowelLastSeen['a'], vowelLastSeen['e'], vowelLastSeen['i'],
-                    vowelLastSeen['o'], vowelLastSeen['u']}) -
-               l + 1;
+      for (r_outer = r_inner;
+           r_outer < n && is_vowel(word[r_outer]);
+           ++r_outer);
+      for (; l < r_outer && cons_count == k; ++l) {
+        for (; r_inner < r_outer && unique_vowel_count < 5; ++r_inner) {
+          if (vowel_counts[word[r_inner] - 'a']++ == 0) ++unique_vowel_count;
+        }
+        
+        if (unique_vowel_count == 5) num_substrings += (r_outer - r_inner) + 1;
+
+        if (auto c = word[l]; is_vowel(c)) {
+          if (--vowel_counts[c - 'a'] == 0) --unique_vowel_count;
+        } else {
+          --cons_count;
+        }
+      }
+      
+      if (!k && l == r_outer && r_outer < n) {
+        ++l;
+        ++r_inner;
+        ++r_outer;
+      }
     }
-    return res;
-  }
-  bool isVowel(char c) {
-    static constexpr string_view kVowels = "aeiou";
-    return kVowels.find(c) != string_view::npos;
+    return num_substrings;
   }
 };
