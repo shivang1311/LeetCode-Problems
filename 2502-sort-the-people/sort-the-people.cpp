@@ -9,7 +9,8 @@ public:
         vector<string> final2;
         while(j>=0)
         {
-            for(int i=0; i<heights.size(); i++){
+            for(int i=0; i<heights.size(); i++)
+            {
                 if(final[j]==heights[i])
                 {
                     final2.push_back(names[i]);
