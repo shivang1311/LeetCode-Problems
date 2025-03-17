@@ -3,10 +3,7 @@ public:
     // shivang agrawal
     vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
         vector<int> final;
-        for(int i=0; i<heights.size(); i++)
-        {
-            final.push_back(heights[i]);
-        }
+        final.insert(final.end(),heights.begin(),heights.end());
         sort(final.begin(),final.end());
         int j = final.size()-1;
         vector<string> final2;
