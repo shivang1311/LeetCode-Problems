@@ -1,6 +1,5 @@
 class Solution {
 public:
-    // shivang agrawal
     vector<int> applyOperations(vector<int>& nums) {
         for(int i=0; i<nums.size()-1; i++)
         {
