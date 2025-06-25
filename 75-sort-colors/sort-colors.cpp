@@ -1,7 +1,6 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        vector<int> res;
         int k = 0;
         for(int i=0;i<=2;i++)
         {
