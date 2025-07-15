@@ -20,7 +20,6 @@ public:
                 res[1]=i;
                 break;
             }
-            else res[1]=last;
         }
         return res;
     }
