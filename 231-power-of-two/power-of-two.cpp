@@ -1,6 +1,5 @@
 class Solution {
 public:
-    // shivang agrawal
     bool isPowerOfTwo(int n) {
         if(n==1) return true;
         double x = n;
